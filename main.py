@@ -5,11 +5,15 @@ import logging
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
+from src.utils.setup_folders import create_folders
+
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 async def main():
+    await create_folders()
+
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
 

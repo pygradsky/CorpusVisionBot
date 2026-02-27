@@ -22,7 +22,7 @@ class ProjectConfig:
     checkpoints_folder_path: str = os.path.join(data_folder_path, "checkpoints_folder_path")
 
     # Папки создаваемые при отправке команды /start
-    folders_to_setup = [
+    required_folders = [
         data_folder_path,
         downloads_folder_path,
         db_folder_path,
