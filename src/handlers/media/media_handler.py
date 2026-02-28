@@ -6,6 +6,8 @@ import aiosqlite
 from aiogram import Router, F
 from aiogram.types import Message
 
+from neural_network.predict import predict_image
+from src.configs.config import WAYS
 from src.configs.config import ProjectConfig
 from src.resources.errors import BotErrors
 from src.resources.messages import BotMessages
@@ -26,10 +28,27 @@ async def process_media(message: Message) -> None:
         file_path = os.path.join(user_photos_path, file_name)
         await message.bot.download(largest_photo, destination=file_path)
 
-        replied_msg = await message.reply(
-            BotMessages.downloaded_photo_msg
-        )
-        return
+        replied_msg = await message.reply(BotMessages.downloaded_photo_msg)
+
+        class_name, confidence = await predict_image(file_path)
+        corpus_number = class_name.split("_")[-1][1:]
+
+        if class_name == "other":
+            msg = (
+                "✅ Готово! Вот что удалось определить:\n\n"
+                f"• Изображение не является корпусом\n"
+                f"• Достоверность: {confidence}%"
+            )
+        else:
+            address = WAYS[class_name]
+            msg = (
+                "✅ Готово! Вот что удалось определить:\n\n"
+                f"• Корпус №{corpus_number}\n"
+                f"• Уверенность: {confidence}%\n"
+                f"• Адрес: <code>{address}</code>\n"
+            )
+        await replied_msg.edit_text(msg, disable_web_page_preview=True)
+
     except OSError as e:
         msg = BotErrors.OSE_ERROR
         logging.error(f"{msg}: {e}")

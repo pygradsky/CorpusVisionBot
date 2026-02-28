@@ -44,7 +44,7 @@ def _predict_sync(image_path: str) -> tuple:
     preds = model.predict(x, verbose=0)[0]
 
     class_index = int(np.argmax(preds))
-    confidence = float(preds[class_index])
+    confidence = int(preds[class_index] * 100)
 
     class_names = sorted(
         os.listdir(ProjectConfig.DATASET_FOLDER_PATH)
