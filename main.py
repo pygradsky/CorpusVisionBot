@@ -8,7 +8,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv
 
-from src.utils.setup_environment import create_environment
+from src.utils.setup_project_env import create_project_env
 from src.resources.errors import BotErrors
 from src.handlers import __all_routers__
 
@@ -18,9 +18,9 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 async def main():
     try:
-        await create_environment()
+        await create_project_env()
     except (OSError, aiosqlite.Error) as e:
-        logging.error(f"{BotErrors.ENVIRONMENT_ERROR}: {e}")
+        logging.error(f"{BotErrors.PROJECT_ENVIRONMENT_ERROR}: {e}")
         return
 
     bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
