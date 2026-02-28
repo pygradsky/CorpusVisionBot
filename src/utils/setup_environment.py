@@ -22,8 +22,8 @@ async def create_table() -> None:
             """
             CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY,
-            user_name TEXT NOT NULL,
-            join_date TEXT
+            username TEXT NOT NULL,
+            join_date TEXT DEFAULT CURRENT_TIMESTAMP
             )
             """
         )
