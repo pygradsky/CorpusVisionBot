@@ -12,7 +12,7 @@ DATASET_DIR = ProjectConfig.DATASET_FOLDER_PATH
 IMG_SIZE = ProjectConfig.IMG_SIZE
 BATCH_SIZE = ProjectConfig.BATCH_SIZE
 EPOCHS = ProjectConfig.EPOCHS
-MODEL_PATH = ProjectConfig.NN_FILE_PATH
+MODEL_PATH = ProjectConfig.NEW_NN_FILE_PATH
 
 datagen = ImageDataGenerator(
     preprocessing_function=preprocess_input,

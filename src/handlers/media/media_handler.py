@@ -31,13 +31,13 @@ async def process_media(message: Message) -> None:
         replied_msg = await message.reply(BotMessages.downloaded_photo_msg)
 
         class_name, confidence = await predict_image(file_path)
-        corpus_number = class_name.split("_")[-1][1:]
+        corpus_number = class_name.split("_")[-1]
 
         if class_name == "other":
             msg = (
                 "✅ Готово! Вот что удалось определить:\n\n"
                 f"• Изображение не является корпусом\n"
-                f"• Достоверность: {confidence}%"
+                f"• Уверенность: {confidence}%"
             )
         else:
             address = WAYS[class_name]
@@ -45,7 +45,7 @@ async def process_media(message: Message) -> None:
                 "✅ Готово! Вот что удалось определить:\n\n"
                 f"• Корпус №{corpus_number}\n"
                 f"• Уверенность: {confidence}%\n"
-                f"• Адрес: <code>{address}</code>\n"
+                f"• Адрес (скопируйте): <code>{address}</code>\n"
             )
         await replied_msg.edit_text(msg, disable_web_page_preview=True)
 
