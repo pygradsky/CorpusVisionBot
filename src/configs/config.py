@@ -8,17 +8,18 @@ PROJECT_FOLDER_PATH = os.path.dirname(
 
 
 class ProjectConfig:
-    # Данные
     DATA_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "data")
     DOWNLOADS_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, "downloads")
 
-    # Базы данных
     DB_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, "db")
     DB_FILE_PATH = os.path.join(DB_FOLDER_PATH, "users.db")
 
-    # Папки для создания
+    NN_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "neural_network")
+    NN_FILE_PATH = os.path.join(NN_FOLDER_PATH, "model.keras")
+
     REQUIRED_FOLDERS = [
         DATA_FOLDER_PATH,
         DOWNLOADS_FOLDER_PATH,
         DB_FOLDER_PATH,
+        NN_FOLDER_PATH,
     ]
