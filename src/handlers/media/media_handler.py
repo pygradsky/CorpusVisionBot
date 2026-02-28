@@ -32,14 +32,9 @@ async def process_media(message: Message) -> None:
         return
     except OSError as e:
         msg = BotErrors.OSE_ERROR
-        logging.error(
-            f"{msg}: {e}"
-        )
+        logging.error(f"{msg}: {e}")
         await message.answer(msg)
     except aiosqlite.Error as e:
         msg = BotErrors.AIOSQLITE_ERROR
-        logging.error(
-            f"{msg}: {e}"
-        )
+        logging.error(f"{msg}: {e}")
         await message.answer(msg)
-    await message.answer(BotMessages.help_msg)

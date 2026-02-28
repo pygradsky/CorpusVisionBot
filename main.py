@@ -21,18 +21,19 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 model = None
 
 async def main() -> None:
-    global model
-    try:
-        model = load_model(ProjectConfig.NN_FILE_PATH)
-        logging.info("Модель успешно загружена")
-    except Exception as e:
-        logging.critical(f"Ошибка загрузки модели: {e}")
-        model = None
+    # ToDo разкоменировать
+    # global model
+    # try:
+    #     model = load_model(ProjectConfig.NN_FILE_PATH)
+    #     logging.info("Модель успешно загружена")
+    # except Exception as e:
+    #     logging.critical(f"Ошибка загрузки модели: {e}")
+    #     return
 
     try:
         await create_project_env()
     except (OSError, aiosqlite.Error) as e:
-        logging.error(f"{BotErrors.PROJECT_ENVIRONMENT_ERROR}: {e}")
+        logging.critical(f"{BotErrors.PROJECT_ENVIRONMENT_ERROR}: {e}")
         return
 
     bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
@@ -40,7 +41,6 @@ async def main() -> None:
 
     for router in __all_routers__:
         dp.include_router(router)
-
     await dp.start_polling(bot)
 
 
