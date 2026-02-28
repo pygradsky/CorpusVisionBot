@@ -1,5 +1,4 @@
 import os
-from dataclasses import dataclass
 
 PROJECT_FOLDER_PATH = os.path.dirname(
     os.path.dirname(
@@ -8,19 +7,18 @@ PROJECT_FOLDER_PATH = os.path.dirname(
 )
 
 
-@dataclass
 class ProjectConfig:
     # Данные
-    data_folder_path: str = os.path.join(PROJECT_FOLDER_PATH, "data")
-    downloads_folder_path: str = os.path.join(data_folder_path, "downloads")
+    DATA_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "data")
+    DOWNLOADS_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, "downloads")
 
     # Базы данных
-    db_folder_path: str = os.path.join(data_folder_path, "db")
-    db_file_path: str = os.path.join(db_folder_path, "users")
+    DB_FOLDER_PATH = os.path.join(DATA_FOLDER_PATH, "db")
+    DB_FILE_PATH = os.path.join(DB_FOLDER_PATH, "users.db")
 
-    # Папки создаваемые при отправке команды /start
-    required_folders = [
-        data_folder_path,
-        downloads_folder_path,
-        db_folder_path,
+    # Папки для создания
+    REQUIRED_FOLDERS = [
+        DATA_FOLDER_PATH,
+        DOWNLOADS_FOLDER_PATH,
+        DB_FOLDER_PATH,
     ]

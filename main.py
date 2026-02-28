@@ -1,3 +1,4 @@
+import aiosqlite
 import os
 import asyncio
 import logging
@@ -5,14 +6,19 @@ import logging
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
-from src.utils.setup_folders import create_folders
+from src.utils.setup_project import create_environment
+from src.resources.errors import BotErrors
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 async def main():
-    await create_folders()
+    try:
+        await create_environment()
+    except (OSError, aiosqlite.Error) as e:
+        logging.error(f"{BotErrors.ENVIRONMENT_ERROR}: {e}")
+        return
 
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
