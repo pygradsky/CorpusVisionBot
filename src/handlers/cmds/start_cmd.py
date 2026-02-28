@@ -16,6 +16,9 @@ router = Router()
 
 @router.message(CommandStart())
 async def process_start_cmd(message: Message):
+    """
+    Обрабатывает команду /start
+    """
     user_id = message.from_user.id
     username = message.from_user.username
 
