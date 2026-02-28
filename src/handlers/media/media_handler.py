@@ -1,3 +1,4 @@
+import asyncio
 import os
 import logging
 import aiosqlite
@@ -13,7 +14,7 @@ router = Router()
 
 
 @router.message(F.photo)
-async def process_media(message: Message):
+async def process_media(message: Message) -> None:
     """
     Обрабатывает изображение, полученное от пользователя
     """
@@ -25,16 +26,20 @@ async def process_media(message: Message):
         file_path = os.path.join(user_photos_path, file_name)
         await message.bot.download(largest_photo, destination=file_path)
 
-        await message.reply(
+        replied_msg = await message.reply(
             BotMessages.downloaded_photo_msg
         )
+        return
     except OSError as e:
+        msg = BotErrors.OSE_ERROR
         logging.error(
-            f"{BotErrors.OSE_ERROR}: {e}"
+            f"{msg}: {e}"
         )
-        return
+        await message.answer(msg)
     except aiosqlite.Error as e:
+        msg = BotErrors.AIOSQLITE_ERROR
         logging.error(
-            f"{BotErrors.AIOSQLITE_ERROR}: {e}"
+            f"{msg}: {e}"
         )
-        return
+        await message.answer(msg)
+    await message.answer(BotMessages.help_msg)

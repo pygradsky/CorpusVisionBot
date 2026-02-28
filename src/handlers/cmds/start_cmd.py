@@ -15,7 +15,7 @@ router = Router()
 
 
 @router.message(CommandStart())
-async def process_start_cmd(message: Message):
+async def process_start_cmd(message: Message) -> None:
     """
     Обрабатывает команду /start
     """
@@ -27,7 +27,7 @@ async def process_start_cmd(message: Message):
         await save_info(user_id, username)
     except (OSError, aiosqlite.Error) as e:
         logging.error(
-            logging.error(f"{BotErrors.USER_ENVIRONMENT_ERROR}: {e}")
+            f"{BotErrors.USER_ENVIRONMENT_ERROR}: {e}"
         )
         return
 
