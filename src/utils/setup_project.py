@@ -5,8 +5,8 @@ from src.configs.config import ProjectConfig
 
 async def create_environment() -> None:
     """Подготавливает окружение проекта (папки + БД)."""
-    await create_table()
     await create_folders()
+    await create_table()
 
 
 async def create_folders() -> None:
