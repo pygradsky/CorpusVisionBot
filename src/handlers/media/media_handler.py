@@ -1,4 +1,3 @@
-import asyncio
 import os
 import logging
 import aiosqlite
@@ -45,15 +44,22 @@ async def process_media(message: Message) -> None:
                 "✅ Готово! Вот что удалось определить:\n\n"
                 f"• Корпус №{corpus_number}\n"
                 f"• Уверенность: {confidence}%\n"
-                f"• Адрес (скопируйте): <code>{address}</code>\n"
+                f"• Адрес: (можете скопировать)\n"
+                f"» <code>{address}</code>"
             )
-        await replied_msg.edit_text(msg, disable_web_page_preview=True)
+        await replied_msg.edit_text(msg)
 
     except OSError as e:
-        msg = BotErrors.OSE_ERROR
+        msg = BotErrors.FILE_PROCESSING_ERROR
         logging.error(f"{msg}: {e}")
-        await message.answer(msg)
+        await message.answer(
+            f"{msg}\n"
+            f"{BotMessages.help_msg}"
+        )
     except aiosqlite.Error as e:
         msg = BotErrors.AIOSQLITE_ERROR
         logging.error(f"{msg}: {e}")
-        await message.answer(msg)
+        await message.answer(
+            f"{msg}\n"
+            f"{BotMessages.help_msg}"
+        )
