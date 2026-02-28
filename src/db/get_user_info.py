@@ -2,7 +2,7 @@ import aiosqlite
 from src.configs.config import ProjectConfig
 
 
-async def get_info(user_id: int) -> None:
+async def get_info(user_id: int) -> list:
     """
     Получает все данные пользователя из БД
     """
