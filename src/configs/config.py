@@ -19,8 +19,8 @@ class ProjectConfig:
 
     # Нейросеть
     NN_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "neural_network")
-    NN_FILE_PATH = os.path.join(NN_FOLDER_PATH, "best_model.keras")
-    NEW_NN_FILE_PATH = os.path.join(NN_FOLDER_PATH, "new_model.keras")
+    NN_FILE_PATH = os.path.join(NN_FOLDER_PATH, "model.pth")
+    NEW_NN_FILE_PATH = os.path.join(NN_FOLDER_PATH, "new_model.pth")
     IMG_SIZE = (224, 224)
     BATCH_SIZE = 32
     EPOCHS = 20

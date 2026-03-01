@@ -30,6 +30,7 @@ async def process_media(message: Message) -> None:
         replied_msg = await message.reply(BotMessages.downloaded_photo_msg)
 
         class_name, confidence = await predict_image(file_path)
+        confidence = int(confidence* 100)
         corpus_number = class_name.split("_")[-1]
 
         if class_name == "other":
@@ -44,7 +45,7 @@ async def process_media(message: Message) -> None:
                 "✅ Готово! Вот что удалось определить:\n\n"
                 f"• Корпус №{corpus_number}\n"
                 f"• Уверенность: {confidence}%\n"
-                f"• Адрес: (можете скопировать)\n"
+                f"• Адрес: (скопируйте текст ниже)\n"
                 f"» <code>{address}</code>"
             )
         await replied_msg.edit_text(msg)
